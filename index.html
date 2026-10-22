@@ -40,8 +40,41 @@ body { margin: 0; font: 18px/1.45 var(--f-body); color: var(--chalk); background
 .eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--chalk-dim); margin: 0; }
 h1 { font-family: var(--f-display); font-weight: 400; font-size: clamp(64px, 12vw, 132px); line-height: .9; margin: 6px 0 10px; color: var(--hazard); letter-spacing: .03em; text-shadow: 5px 5px 0 var(--bp-deep); }
 .lead { font-size: clamp(20px, 2.4vw, 24px); max-width: 34ch; margin: 0 0 30px; text-wrap: balance; }
-.lag { display: flex; gap: 8px; margin: 0 0 30px; flex-wrap: wrap; }
-.lag img { width: 54px; height: 54px; border-radius: 50%; object-fit: cover; border: 3px solid var(--c); background: #1b2230; }
+.lagboks { margin: 0 0 30px; }
+.lag { display: flex; gap: 8px; flex-wrap: wrap; }
+.lag button { padding: 0; border: 0; background: none; border-radius: 50%; cursor: pointer; transition: transform .15s ease; }
+.lag button:hover { transform: translateY(-3px) scale(1.06); }
+.lag button:focus-visible { outline: 4px solid var(--hazard); outline-offset: 3px; }
+.lag img { width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 3px solid var(--c); background: #1b2230; display: block; }
+.laghint { margin: 8px 0 0; font-size: 15px; color: var(--chalk-dim); }
+
+/* Karakterkort i dialog – samme oppbygging som de utskrivbare kortene */
+.kortdlg { border: 0; padding: 0; background: transparent; width: min(440px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); overflow: visible; color: var(--ink); }
+.kortdlg::backdrop { background: rgba(5, 15, 35, .72); }
+.kort { background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 14px 0 rgba(5, 20, 45, .45); max-height: calc(100dvh - 32px); overflow-y: auto; }
+.khode { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 12px 14px 12px 20px; background: var(--k); color: var(--kt); }
+.khode h2 { font-family: var(--f-display); font-weight: 400; font-size: 46px; line-height: 1; margin: 0; letter-spacing: .04em; }
+.khoyre { display: flex; align-items: center; gap: 8px; }
+.lagchip { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 4px 10px; border-radius: 99px; border: 2px solid currentColor; white-space: nowrap; }
+.lukk { width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgba(255, 255, 255, .92); color: #14213d; font-size: 26px; line-height: 1; cursor: pointer; display: grid; place-items: center; }
+.lukk:focus-visible, .bla button:focus-visible { outline: 4px solid var(--hazard); outline-offset: 2px; }
+.kbilde { position: relative; aspect-ratio: 900 / 604; background: #111; border-bottom: 5px solid var(--k); }
+.kbilde img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.blirpil { position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%); background: var(--k); color: var(--kt); font-size: 13px; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase; padding: 4px 12px; border-radius: 99px; white-space: nowrap; }
+.kbody { padding: 14px 20px 18px; }
+.blir { font-size: 19px; margin: 0 0 10px; }
+.rader { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; margin: 0; font-size: 17px; }
+.rader dt { color: var(--muted); font-weight: 700; font-size: 14px; letter-spacing: .04em; text-transform: uppercase; padding-top: 2px; }
+.rader dd { margin: 0; font-weight: 700; }
+.prikker { display: inline-flex; gap: 5px; vertical-align: middle; }
+.prikker i { width: 15px; height: 15px; border-radius: 50%; border: 2px solid var(--kp); }
+.prikker i.p { background: var(--kp); }
+.valg { margin-top: 12px; padding: 10px 12px; border-radius: 10px; background: #fff3e6; border-left: 5px solid #e0731f; font-size: 17px; }
+.valg p { margin: 0; } .valg p + p { margin-top: 4px; }
+.sier { margin: 14px 0 0; font-size: 21px; font-weight: 700; color: var(--kp); }
+.bla { display: flex; justify-content: space-between; gap: 10px; margin-top: 16px; }
+.bla button { font: 700 17px var(--f-body); padding: 10px 16px; min-height: 44px; border-radius: 12px; border: 2px solid var(--rule); background: var(--paper); color: var(--ink); cursor: pointer; }
 .dorer { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
 .dor { display: flex; flex-direction: column; background: var(--paper); color: var(--ink); text-decoration: none; border-radius: 16px; overflow: hidden;
   box-shadow: 0 12px 0 rgba(5, 20, 45, .35); transition: transform .15s ease; }
@@ -71,7 +104,7 @@ h1 { font-family: var(--f-display); font-weight: 400; font-size: clamp(64px, 12v
   <p class="eyebrow">Matte, lesing og skriving med robotene</p>
   <h1>Lyslaget</h1>
   <p class="lead">Robotene trenger en mekaniker. Velg hvor du vil jobbe i dag.</p>
-  <div class="lag" id="lag"></div>
+  <div class="lagboks"><div class="lag" id="lag"></div><p class="laghint">Trykk på en robot for å se kortet.</p></div>
   <div class="dorer">
     <a class="dor" href="verksted.html" style="--c:#A87A00">
       <span class="dor-topp"><span>Inngang 1</span><span>13 jobber i uka</span></span>
@@ -88,10 +121,61 @@ h1 { font-family: var(--f-display); font-weight: 400; font-size: clamp(64px, 12v
   </div>
   <p class="fot">Ingen innlogging. Ingenting sendes noe sted. Fremgangen lagres bare på denne maskinen.</p>
 </main>
+<dialog class="kortdlg" id="kortdlg" aria-labelledby="kortnavn"></dialog>
 <script>
 (() => {
   const ROB = [['volt', '#2C4A9A'], ['pil', '#D3302C'], ['brum', '#A87A00'], ['sky', '#2E9C7C'], ['bolge', '#13889A'], ['spor', '#9A7414'], ['bit', '#5E9E12'], ['knas', '#56368A'], ['snik', '#D9661A'], ['skrot', '#7A4A26']];
-  document.getElementById('lag').innerHTML = ROB.map(([id, c]) => `<img src="media/ansikt/${id}.jpg" alt="" style="--c:${c}">`).join('');
+  // Samme fakta som på de utskrivbare karakterkortene. k = kortfarge, kt = tekst på kortfarge, kp = lesbar farge på hvitt
+  const KORT = {
+    volt: { navn: 'Volt', lag: 'Lyslaget', k: '#2C4A9A', kt: '#fff', kp: '#2C4A9A', blir: 'buss', farger: 'blå og sølv', hoyde: '8 meter', fart: 3, styrke: 4, klok: 5, liker: 'å lage en plan', ikke: 'rot', sier: 'Først tenker vi. Så gjør vi.' },
+    pil: { navn: 'Pil', lag: 'Lyslaget', k: '#D3302C', kt: '#fff', kp: '#C42A26', blir: 'sportsbil', farger: 'rød og hvit', hoyde: '5 meter', fart: 5, styrke: 2, klok: 3, liker: 'å kjøre fort', ikke: 'å vente', sier: 'Klar, ferdig, kjør!' },
+    brum: { navn: 'Brum', lag: 'Lyslaget', k: '#F2B705', kt: '#1d1a10', kp: '#8F6800', blir: 'gravemaskin', farger: 'gul og svart', hoyde: '9 meter', fart: 1, styrke: 5, klok: 3, liker: 'å bygge', ikke: 'høye lyder', sier: 'Jeg fikser det.' },
+    sky: { navn: 'Sky', lag: 'Lyslaget', k: '#2E9C7C', kt: '#fff', kp: '#22795F', blir: 'helikopter', farger: 'hvit og grønn', hoyde: '6 meter', fart: 4, styrke: 2, klok: 4, liker: 'å se langt', ikke: 'tåke', sier: 'Jeg ser alt fra lufta.' },
+    bolge: { navn: 'Bølge', lag: 'Lyslaget', k: '#13889A', kt: '#fff', kp: '#0F6E7D', blir: 'redningsbåt', farger: 'turkis og blå', hoyde: '7 meter', fart: 4, styrke: 3, klok: 4, liker: 'havet og store bølger', ikke: 'å gi opp', sier: 'Ingen blir igjen!' },
+    spor: { navn: 'Spor', lag: 'Lyslaget', k: '#1d1d1f', kt: '#F2C14E', kp: '#7A5C0E', blir: 'tog', farger: 'svart og gull', hoyde: '10 meter', fart: 3, styrke: 5, klok: 4, liker: 'rutetider og planer', ikke: 'når planen endres', sier: 'Alt i rute!' },
+    bit: { navn: 'Bit', lag: 'Lyslaget', k: '#7BC41C', kt: '#16210a', kp: '#4C7F0E', blir: 'drone', farger: 'limegrønn og sølv', hoyde: '2 meter', fart: 4, styrke: 1, klok: 3, liker: 'å fly inn i trange steder', ikke: 'å bli kalt liten', sier: 'Liten, men smart!' },
+    knas: { navn: 'Knas', lag: 'Rust-gjengen', k: '#56368A', kt: '#fff', kp: '#56368A', blir: 'monstertruck', farger: 'lilla og svart', hoyde: '9 meter', fart: 3, styrke: 5, klok: 1, liker: 'å knuse ting', ikke: 'å tape', sier: 'Knas! Knas! Knas!', valg: 'Knas blir sint fort.', laere: 'å telle til fem.' },
+    snik: { navn: 'Snik', lag: 'Rust-gjengen', k: '#E0731F', kt: '#fff', kp: '#B4560F', blir: 'motorsykkel', farger: 'grå og oransje', hoyde: '5 meter', fart: 5, styrke: 1, klok: 4, liker: 'å lure andre', ikke: 'å bli sett', sier: 'Ingen så meg.', valg: 'Snik lurer andre.', laere: 'å si sannheten.' },
+    skrot: { navn: 'Skrot', lag: 'Rust-gjengen', k: '#6E4424', kt: '#C9F24A', kp: '#6E4424', blir: 'bergingsbil', farger: 'rustbrun og grønn', hoyde: '8 meter', fart: 2, styrke: 4, klok: 3, liker: 'å samle ting', ikke: 'å dele', sier: 'Mitt! Alt er mitt!', valg: 'Skrot tar ting som ikke er hans.', laere: 'å spørre først.' },
+  };
+  const lag = document.getElementById('lag');
+  lag.innerHTML = ROB.map(([id, c]) => `<button type="button" data-id="${id}" aria-label="Vis kortet til ${KORT[id].navn}" style="--c:${c}"><img src="media/ansikt/${id}.jpg" alt=""></button>`).join('');
+  const dlg = document.getElementById('kortdlg');
+  const prikker = (n, tittel) => `<span class="prikker" role="img" aria-label="${tittel}: ${n} av 5">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= n ? 'p' : ''}"></i>`).join('')}</span>`;
+  let aktiv = 0, fra = null;
+  function vis(i) {
+    aktiv = (i + ROB.length) % ROB.length;
+    const id = ROB[aktiv][0], r = KORT[id];
+    const forrige = KORT[ROB[(aktiv + ROB.length - 1) % ROB.length][0]].navn, neste = KORT[ROB[(aktiv + 1) % ROB.length][0]].navn;
+    dlg.innerHTML = `<div class="kort" style="--k:${r.k};--kt:${r.kt};--kp:${r.kp}">
+      <div class="khode"><h2 id="kortnavn">${r.navn}</h2><div class="khoyre"><span class="lagchip">${r.lag}</span><button type="button" class="lukk" aria-label="Lukk kortet">×</button></div></div>
+      <div class="kbilde"><img src="media/kort/${id}.jpg" alt="${r.navn} som robot og som ${r.blir}"><span class="blirpil">blir til</span></div>
+      <div class="kbody">
+        <p class="blir">${r.navn} blir til: <b>${r.blir}</b></p>
+        <dl class="rader">
+          <dt>Farge</dt><dd>${r.farger}</dd><dt>Høyde</dt><dd>${r.hoyde}</dd>
+          <dt>Fart</dt><dd>${prikker(r.fart, 'Fart')}</dd><dt>Styrke</dt><dd>${prikker(r.styrke, 'Styrke')}</dd><dt>Klok</dt><dd>${prikker(r.klok, 'Klok')}</dd>
+          <dt>Liker</dt><dd>${r.liker}</dd><dt>Liker ikke</dt><dd>${r.ikke}</dd>
+        </dl>
+        ${r.valg ? `<div class="valg"><p><b>Dårlig valg:</b> ${r.valg}</p><p><b>Kan lære:</b> ${r.laere}</p></div>` : ''}
+        <p class="sier">«${r.sier}»</p>
+        <div class="bla"><button type="button" data-d="-1">← ${forrige}</button><button type="button" data-d="1">${neste} →</button></div>
+      </div></div>`;
+    dlg.querySelector('.kort').scrollTop = 0;
+  }
+  lag.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    fra = b; vis(ROB.findIndex(([id]) => id === b.dataset.id));
+    if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', '');
+    dlg.querySelector('.lukk').focus();
+  });
+  const lukk = () => { if (dlg.open) dlg.close(); };
+  dlg.addEventListener('click', e => {
+    if (e.target === dlg || e.target.closest('.lukk')) return lukk();
+    const b = e.target.closest('[data-d]'); if (b) { vis(aktiv + +b.dataset.d); dlg.querySelector(`[data-d="${b.dataset.d}"]`).focus(); }
+  });
+  dlg.addEventListener('keydown', e => { if (e.key === 'ArrowRight') vis(aktiv + 1); if (e.key === 'ArrowLeft') vis(aktiv - 1); if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') dlg.querySelector('.lukk').focus(); });
+  dlg.addEventListener('close', () => { if (fra) fra.focus(); });
   const d = new Date(); const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())); const dag = t.getUTCDay() || 7; t.setUTCDate(t.getUTCDate() + 4 - dag);
   const uke = Math.ceil(((t - new Date(Date.UTC(t.getUTCFullYear(), 0, 1))) / 86400000 + 1) / 7);
   const TITLER = ['Steinras på veien!', 'Storm på havet!', 'Toget står fast!', 'Mørkt i byen!', 'Knas sitter fast!'];
