@@ -75,7 +75,8 @@ h1 { font-family: var(--f-display); font-weight: 400; font-size: clamp(64px, 12v
 .sier { margin: 14px 0 0; font-size: 21px; font-weight: 700; color: var(--kp); }
 .bla { display: flex; justify-content: space-between; gap: 10px; margin-top: 16px; }
 .bla button { font: 700 17px var(--f-body); padding: 10px 16px; min-height: 44px; border-radius: 12px; border: 2px solid var(--rule); background: var(--paper); color: var(--ink); cursor: pointer; }
-.dorer { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.dorer { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+@media (max-width: 1060px) { .dorer { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .dor { display: flex; flex-direction: column; background: var(--paper); color: var(--ink); text-decoration: none; border-radius: 16px; overflow: hidden;
   box-shadow: 0 12px 0 rgba(5, 20, 45, .35); transition: transform .15s ease; }
 .dor:hover { transform: translateY(-4px); }
@@ -90,13 +91,40 @@ h1 { font-family: var(--f-display); font-weight: 400; font-size: clamp(64px, 12v
 .dor p { margin: 0; font-size: 18px; }
 .fag { display: flex; gap: 8px; flex-wrap: wrap; }
 .fag span { font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #fff; padding: 3px 12px; border-radius: 99px; }
-.f-matte { background: #2C4A9A; } .f-lesing { background: #1d7f47; } .f-skriving { background: #9a4fb8; }
+.f-klokka { background: #1d1d1f; color: #F2C14E !important; } .f-matte { background: #2C4A9A; } .f-lesing { background: #1d7f47; } .f-skriving { background: #9a4fb8; }
 .ga { margin-top: auto; align-self: flex-start; background: var(--hazard); color: var(--hazard-ink); font-weight: 700; font-size: 21px; padding: 14px 26px; border-radius: 14px; box-shadow: 0 5px 0 var(--hazard-deep); }
 .ukens { font-size: 16px; color: var(--muted); }
 .ukens b { color: var(--ink); }
 .fot { margin-top: 36px; color: var(--chalk-dim); font-size: 14px; }
 @media (max-width: 760px) { .dorer { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* ===== DESIGNLØFT (okt 2026) – hele blokken kan slettes for å gå tilbake ===== */
+@keyframes dl-inn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.dor { border-radius: 20px; box-shadow: 0 12px 0 rgba(5, 20, 45, .35), 0 30px 50px -26px rgba(0, 0, 0, .6); transition: transform .2s cubic-bezier(.2, .8, .3, 1), box-shadow .2s ease; animation: dl-inn .4s cubic-bezier(.2, .8, .3, 1) backwards; }
+.dor:nth-child(2) { animation-delay: .06s; } .dor:nth-child(3) { animation-delay: .12s; }
+.dor:hover { transform: translateY(-6px); box-shadow: 0 18px 0 rgba(5, 20, 45, .35), 0 36px 56px -26px rgba(0, 0, 0, .65); }
+.dor:active { transform: translateY(-1px); }
+.dor-bilde { overflow: hidden; }
+.dor-bilde img { transition: transform .5s cubic-bezier(.2, .8, .3, 1); }
+.dor:hover .dor-bilde img { transform: scale(1.05); }
+.dor-topp { background: #eef3fa; }
+.ga { display: inline-flex; align-items: center; gap: 10px; transition: transform .15s ease, box-shadow .15s ease; }
+.ga::after { content: "→"; transition: transform .2s ease; }
+.dor:hover .ga { transform: translateY(-2px); box-shadow: 0 7px 0 var(--hazard-deep); }
+.dor:hover .ga::after { transform: translateX(4px); }
+.dor:active .ga { transform: translateY(3px); box-shadow: 0 2px 0 var(--hazard-deep); }
+.fag span { padding: 4px 12px; }
+.lag img { box-shadow: 0 4px 0 rgba(5, 20, 45, .45); transition: box-shadow .15s ease; }
+.lag button:hover img { box-shadow: 0 0 0 4px rgba(255, 200, 61, .55), 0 6px 0 rgba(5, 20, 45, .45); }
+.lag button:active { transform: scale(.95); }
+.kort { animation: dl-inn .25s cubic-bezier(.2, .8, .3, 1); box-shadow: 0 14px 0 rgba(5, 20, 45, .45), 0 30px 60px -20px rgba(0, 0, 0, .6); }
+.lukk { transition: transform .15s ease, background-color .15s ease; }
+.lukk:hover { background: #fff; transform: scale(1.06) rotate(90deg); }
+.bla button { box-shadow: 0 4px 0 #c9d3e3; transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; }
+.bla button:hover { transform: translateY(-2px); border-color: #8696b3; }
+.bla button:active { transform: translateY(2px); box-shadow: 0 1px 0 #c9d3e3; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
 </head>
 <body>
@@ -117,6 +145,12 @@ h1 { font-family: var(--f-display); font-weight: 400; font-size: clamp(64px, 12v
       <span class="dor-bilde"><img src="media/pil/6.jpg" alt="Pil som rød sportsbil på startstreken"></span>
       <span class="dor-innhold"><h2>Utrykning</h2><span class="fag"><span class="f-matte">Matte</span><span class="f-lesing">Lesing</span><span class="f-skriving">Skriving</span></span>
         <p>Hjelp Pil å forvandle seg, så han kan rykke ut og hjelpe.</p><p class="ukens" id="ukens"></p><span class="ga">Rykk ut</span></span>
+    </a>
+    <a class="dor" href="klokka.html" style="--c:#7A5C0E">
+      <span class="dor-topp"><span>Inngang 3</span><span>13 stasjoner</span></span>
+      <span class="dor-bilde"><img src="media/klokka/perrong.jpg" alt="Spor står på perrongen ved fjorden"></span>
+      <span class="dor-innhold"><h2>Spors stasjon</h2><span class="fag"><span class="f-matte">Matte</span><span class="f-klokka">Klokka</span></span>
+        <p>Lær klokka sammen med Spor, én stasjon om gangen. Fra hele timer til fem minutter.</p><span class="ga">Gå til stasjonen</span></span>
     </a>
   </div>
   <p class="fot">Ingen innlogging. Ingenting sendes noe sted. Fremgangen lagres bare på denne maskinen.</p>
