@@ -91,7 +91,14 @@ h1 { font-family: var(--f-display); font-weight: 400; font-size: clamp(64px, 12v
 .dor p { margin: 0; font-size: 18px; }
 .fag { display: flex; gap: 8px; flex-wrap: wrap; }
 .fag span { font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #fff; padding: 3px 12px; border-radius: 99px; }
-.f-klokka { background: #1d1d1f; color: #F2C14E !important; } .f-matte { background: #2C4A9A; } .f-lesing { background: #1d7f47; } .f-skriving { background: #9a4fb8; }
+.f-klokka { background: #1d1d1f; color: #F2C14E !important; }
+/* Inngang 4 (AR): bred stripe under de tre dørene på store skjermer */
+.f-ar { background: #D3302C; color: #fff !important; }
+@media (min-width: 1061px) {
+  .dor.ar { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
+  .dor.ar .dor-topp { grid-column: 1 / -1; }
+  .dor.ar .dor-bilde { aspect-ratio: auto; min-height: 220px; }
+} .f-matte { background: #2C4A9A; } .f-lesing { background: #1d7f47; } .f-skriving { background: #9a4fb8; }
 .ga { margin-top: auto; align-self: flex-start; background: var(--hazard); color: var(--hazard-ink); font-weight: 700; font-size: 21px; padding: 14px 26px; border-radius: 14px; box-shadow: 0 5px 0 var(--hazard-deep); }
 .ukens { font-size: 16px; color: var(--muted); }
 .ukens b { color: var(--ink); }
@@ -151,6 +158,12 @@ h1 { font-family: var(--f-display); font-weight: 400; font-size: clamp(64px, 12v
       <span class="dor-bilde"><img src="media/klokka/perrong.jpg" alt="Spor står på perrongen ved fjorden"></span>
       <span class="dor-innhold"><h2>Spors stasjon</h2><span class="fag"><span class="f-matte">Matte</span><span class="f-klokka">Klokka</span></span>
         <p>Lær klokka sammen med Spor, én stasjon om gangen. Fra hele timer til fem minutter.</p><span class="ga">Gå til stasjonen</span></span>
+    </a>
+    <a class="dor ar" href="ar.html" style="--c:#D3302C">
+      <span class="dor-topp"><span>Inngang 4 · Kamera</span><span>Ta med robotkortet</span></span>
+      <span class="dor-bilde"><img src="media/kort/pil.jpg" alt="Pil som robot og som rød sportsbil"></span>
+      <span class="dor-innhold"><h2>Robotkort i AR</h2><span class="fag"><span class="f-ar">3D</span></span>
+        <p>Pek iPaden mot et robotkort. Da står roboten på kortet, og du kan forvandle den!</p><span class="ga">Start kameraet</span></span>
     </a>
   </div>
   <p class="fot">Ingen innlogging. Ingenting sendes noe sted. Fremgangen lagres bare på denne maskinen.</p>
