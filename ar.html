@@ -501,11 +501,11 @@ $('start3D').addEventListener('click', () => {
   tilpass();
   addEventListener('resize', tilpass);
   const klokke = new THREE.Clock();
-  renderer.setAnimationLoop(() => {
-    const dt = Math.min(0.05, klokke.getDelta());
-    if (aktiv) aktiv.oppdater(dt, klokke.elapsedTime);
-    kontroll.update(); renderer.render(scene, camera);
-  });
+  let tid = 0;
+  const steg = dt => { tid += dt; if (aktiv) aktiv.oppdater(dt, tid); kontroll.update(dt); renderer.render(scene, camera); };
+  // ?opptak=1 brukes bare for å lage demovideo: da styres tiden utenfra, bilde for bilde
+  if (new URLSearchParams(location.search).get('opptak')) window.__steg = steg;
+  else renderer.setAnimationLoop(() => steg(Math.min(0.05, klokke.getDelta())));
   stopp = () => { renderer.setAnimationLoop(null); removeEventListener('resize', tilpass); renderer.dispose(); };
   modus = '3d'; visUI(); $('hint').textContent = 'Dra for å snu, klyp for å zoome';
   velg(ROBOTER.find(klar));
